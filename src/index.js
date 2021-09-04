@@ -17,14 +17,35 @@ const onClickAdd = () => {
   const completeBotton = document.createElement("button");
   completeBotton.innerText = "完了";
   completeBotton.addEventListener("click", () => {
-    alert("完了");
+    //　TODOの削除
+    deleteFormIncompleteList(completeBotton.parentNode);
+
+    // 完了リストに追加する要素
+    const addTarget = completeBotton.parentNode;
+    const text = addTarget.firstElementChild.innerText;
+
+    // div以下を初期化
+    addTarget.textContent = null;
+
+    //liを生成
+    const li = document.createElement("li");
+    li.innerText = text;
+
+    // 戻すボタン生成
+    const backBotton = document.createElement("button");
+    backBotton.innerText = "戻す";
+
+    addTarget.appendChild(li);
+    addTarget.appendChild(backBotton);
+
+    document.getElementById("complete-list").appendChild(addTarget);
   });
 
   // button（削除）タグ生成
   const deleteBotton = document.createElement("button");
   deleteBotton.innerText = "削除";
   deleteBotton.addEventListener("click", () => {
-    alert("削除");
+    deleteFormIncompleteList(deleteBotton.parentNode);
   });
 
   // divタグに各タグを挿入
@@ -38,3 +59,8 @@ const onClickAdd = () => {
 document
   .getElementById("add-button")
   .addEventListener("click", () => onClickAdd());
+
+//未完了リストから指定の要素を削除
+const deleteFormIncompleteList = (terget) => {
+  document.getElementById("incomplete-list").removeChild(terget);
+};
